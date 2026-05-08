@@ -31,15 +31,19 @@ import (
 	dclient "github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
 	"knative.dev/kn-plugin-quickstart/pkg/install"
+	"knative.dev/pkg/version"
 )
 
-// NOTE: If you are changing kubernetesVersion and kindVersion, please also
-// update the kubectl and kind versions listed here:
+// NOTE: If you are changing kindVersion, please also update the kubectl and
+// kind versions listed here:
 // https://github.com/knative-extensions/kn-plugin-quickstart/blob/main/README.md
+//
+// kubernetesVersion defaults to the kindest/node image matching the minimum
+// Kubernetes version Knative requires, pulled from knative.dev/pkg.
 var (
-	kubernetesVersion  = ""
+	kubernetesVersion  = "kindest/node:" + version.KubernetesMinimumVersion()
 	clusterName        string
-	kindVersion        = 0.26
+	kindVersion        = 0.30
 	container_reg_name = "kind-registry"
 	container_reg_port = "5001"
 	installKnative     = true

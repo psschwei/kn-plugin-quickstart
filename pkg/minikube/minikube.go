@@ -25,17 +25,17 @@ import (
 	"time"
 
 	"knative.dev/kn-plugin-quickstart/pkg/install"
-	"knative.dev/pkg/version"
 )
 
 // NOTE: If you are changing minikubeVersion, please also update the kubectl and
 // minikube versions listed here:
 // https://github.com/knative-extensions/kn-plugin-quickstart/blob/main/README.md
 //
-// kubernetesVersion is sourced from knative.dev/pkg so it stays aligned with
-// the minimum Kubernetes version Knative requires. minikube's
-// --kubernetes-version flag expects the version without the leading "v".
-var kubernetesVersion = strings.TrimPrefix(version.KubernetesMinimumVersion(), "v")
+// kubernetesVersion must match DefaultKubernetesMinVersion in
+// https://github.com/knative/pkg/blob/main/version/version.go (without the
+// leading "v" — minikube's --kubernetes-version flag expects bare semver).
+// The verify-min-k8s-version CI check enforces this.
+var kubernetesVersion = "1.34.0"
 var clusterName string
 var clusterVersionOverride bool
 var minikubeVersion = 1.37
